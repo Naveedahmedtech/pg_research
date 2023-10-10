@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Invoice</title>
+</head>
+
+<body>
+    <h1>Invoice for <%= selectedSupplier %></h1>
+
+    <h2>Product Details:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Code</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%= name %></td>
+                <td><%= code %></td>
+                <td><%= price %></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Product Image:</h3>
+    <img src="<%= image %>" alt="Product Image" width="200" />
+
+</body>
+
+</html>
