@@ -47,6 +47,44 @@ app.post("/add-products", upload.single("image"), async (req, res) => {
   }
 });
 
+
+app.put("/update-product/:id", upload.single("image"), async (req, res) => {
+  try {
+    const { name, code, price, supplier_id } = req.body;
+    const productId = req.params.id;
+    const updates = {};
+
+    if (name) updates.name = name;
+    if (code) updates.code = code;
+    if (price) updates.price = price;
+    if (supplier_id) updates.supplier_id = supplier_id;
+
+    if (req.file) {
+      const { filename } = req.file;
+      updates.image = filename;
+    }
+
+    await knex("products").where({ id: productId }).update(updates);
+    return res.status(200).json({ success: "Product Updated Successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({ error: error.message });
+  }
+});
+
+
+app.delete("/delete-product/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+    await knex("products").where({ id: productId }).del();
+    return res.status(200).json({ success: "Product Deleted Successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({ error: error.message });
+  }
+});
+
+
 app.post("/add-suppliers", async (req, res) => {
   try {
     const { name } = req.body;
